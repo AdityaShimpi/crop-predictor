@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Crop Prediction</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -18,8 +17,8 @@
                         let resultHtml = '';
                         crops.forEach(function(crop) {
                             let cropName = crop.toLowerCase().replace(' ', '_');
-                            resultHtml += '<div class="result-card">';
-                            resultHtml += '<img src="{{ url_for('static', filename='cropphoto/') }}' + cropName + '.jpg" alt="' + crop + '" class="crop-image">';
+                            resultHtml += '<div style="background: white; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border-radius: 5px; font-size: 24px; color: #333; font-family: \'Poppins\', Arial, sans-serif; margin-bottom: 20px; width: 200px; height: 200px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;">';
+                            resultHtml += '<img src="{{ url_for(\'static\', filename=\'cropphoto/\') }}' + cropName + '.jpg" alt="' + crop + '" style="max-width: 150px; max-height: 150px; margin-top: 10px;">';
                             resultHtml += '<div>' + crop + '</div>';
                             resultHtml += '</div>';
                         });
@@ -32,28 +31,118 @@
             });
         });
     </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            margin-left: 20px;
+        }
+
+        header h1 {
+            margin-left: 20px;
+            font-size: 24px;
+            font-family: 'Orbitron', Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-container {
+            width: 45%;
+        }
+
+        .results-container {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        form input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'Orbitron', Arial, sans-serif;
+        }
+
+        form .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo" style="height: 50px; margin-left: 20px;">
         <h1>Crop Prediction System</h1>
     </header>
-    <div class="container">
-        <div class="form-container">
-            <h2>Enter Crop Prediction Data</h2>
-            <div class="card">
+    <div class="container" style="width: 80%; margin: 50px auto; display: flex; justify-content: space-between;">
+        <div class="form-container" style="width: 45%;">
+            <h2 style="font-size: 28px; margin-bottom: 20px; font-family: 'Roboto', Arial, sans-serif;">Enter Crop Prediction Data</h2>
+            <div class="card" style="background: white; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border-radius: 5px; margin-bottom: 20px;">
                 <form id="cropForm">
-                    <label for="city">City:</label><br>
-                    <input type="text" id="city" name="city"><br>
-                    <label for="ph">Soil pH:</label><br>
-                    <input type="text" id="ph" name="ph"><br>
-                    <label for="rain">Rainfall:</label><br>
-                    <input type="text" id="rain" name="rain"><br><br>
-                    <input type="submit" value="Predict" class="button">
+                    <label for="city" style="display: block; margin: 10px 0 5px; font-family: 'Roboto', Arial, sans-serif;">City:</label><br>
+                    <input type="text" id="city" name="city" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"><br>
+                    <label for="ph" style="display: block; margin: 10px 0 5px; font-family: 'Roboto', Arial, sans-serif;">Soil pH:</label><br>
+                    <input type="text" id="ph" name="ph" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"><br>
+                    <label for="rain" style="display: block; margin: 10px 0 5px; font-family: 'Roboto', Arial, sans-serif;">Rainfall:</label><br>
+                    <input type="text" id="rain" name="rain" style="width: calc(100% - 20px); padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px;"><br><br>
+                    <input type="submit" value="Predict" class="button" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; font-family: 'Orbitron', Arial, sans-serif;">
                 </form>
             </div>
         </div>
-        <div id="results" class="results-container">
+        <div id="results" class="results-container" style="width: 45%; display: flex; flex-direction: column; align-items: flex-start;">
             <!-- Result cards will be dynamically added here -->
         </div>
     </div>
