@@ -3,34 +3,35 @@
 <head>
     <title>Crop Prediction</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#cropForm').on('submit', function(event) {
-                event.preventDefault();  // Prevent the form from submitting via the browser
+<script>
+    $(document).ready(function() {
+        $('#cropForm').on('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting via the browser
 
-                $.ajax({
-                    url: '/predict',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        let crops = response.predicted_crops;
-                        let resultHtml = '';
-                        crops.forEach(function(crop) {
-                            let cropName = crop.toLowerCase().replace(' ', '_');
-                            resultHtml += '<div style="background: white; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border-radius: 5px; font-size: 24px; color: #333; font-family: \'Poppins\', Arial, sans-serif; margin-bottom: 20px; width: 200px; height: 200px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;">';
-                            resultHtml += '<img src="{{ url_for(\'static\', filename=\'cropphoto/\') }}' + cropName + '.jpg" alt="' + crop + '" style="max-width: 150px; max-height: 150px; margin-top: 10px;">';
-                            resultHtml += '<div>' + crop + '</div>';
-                            resultHtml += '</div>';
-                        });
-                        $('#results').html(resultHtml);
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Error: " + xhr.responseText);
-                    }
-                });
+            $.ajax({
+                url: '/predict',
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    let crops = response.predicted_crops;
+                    let resultHtml = '';
+                    crops.forEach(function(crop) {
+                        let cropName = crop.toLowerCase().replace(' ', '_');
+                        resultHtml += '<div style="background: white; padding: 20px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); border-radius: 5px; font-size: 24px; color: #333; font-family: \'Poppins\', Arial, sans-serif; margin-bottom: 20px; width: 200px; height: 200px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;">';
+                        resultHtml += '<img src="' + '{{ url_for("static", filename="cropphoto/") }}' + cropName + '.jpg" alt="' + crop + '" style="max-width: 150px; max-height: 150px; margin-top: 10px;">';
+                        resultHtml += '<div>' + crop + '</div>';
+                        resultHtml += '</div>';
+                    });
+                    $('#results').html(resultHtml);
+                },
+                error: function(xhr, status, error) {
+                    alert("Error: " + xhr.responseText);
+                }
             });
         });
-    </script>
+    });
+</script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap');
 
